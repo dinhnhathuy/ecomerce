@@ -2,6 +2,8 @@ import { ThemeProvider } from "next-themes";
 import type { Metadata } from "next";
 import { Inter, Barlow, Roboto_Mono } from 'next/font/google';
 import "./globals.css";
+// ClerkProvider
+import { ClerkProvider } from "@clerk/nextjs";
 
 // metadata is used to set the title and description of the page
 export const metadata: Metadata = {
@@ -24,19 +26,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${barlowFont.variable} ${robotoMono.variable} ${interFont.className}`}
-      >
-        <ThemeProvider 
-          attribute="class" 
-          defaultTheme="Light"
-          enableSystem 
-          disableTransitionOnChange
+    <ClerkProvider>
+      <html lang="en">
+        <body
+          className={`${barlowFont.variable} ${robotoMono.variable} ${interFont.className}`}
         >
-          {children}
-        </ThemeProvider>
-      </body>
-    </html>
+          <ThemeProvider 
+            attribute="class" 
+            defaultTheme="Light"
+            enableSystem 
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
